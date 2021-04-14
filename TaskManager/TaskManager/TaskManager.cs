@@ -6,42 +6,50 @@ namespace TaskManager
     {
         static void Main(string[] args)
         {
-            Person tom = new Person();
-            tom.GetInfo();      // Имя: Возраст: 0
-
-            tom.name = "Tom";
-            tom.age = 34;
-            tom.GetInfo();  // Имя: Tom Возраст: 34
-            Console.ReadKey();
+            
         }
     }
-
-    class Person
-    {
-        public string name; // имя
-        public int age = 18;     // возраст
-
-        public void GetInfo()
-        {
-            Console.WriteLine($"Имя: {name}  Возраст: {age}");
-        }
-    }
-
    
     public class WeeklyTask
     {
         private static int counter = 0;
+
         string nameOfTask = "New task";
         DateTime taskDate = DateTime.Now;
 
         public WeeklyTask()
         {
-
+            counter++;
         }
 
-        public void CreateWeeklyTask(counter)
+        WeeklyTask(string nameOfTask, DateTime.TryParse(input, out DateTime numberOfArrayElements) )
         {
-            counter 
+            
+             
         }
+
+        public static bool CreateTask(string inputString)
+        {
+            DateTime date;
+            TimeSpan timeSpan;
+
+            var splitParameters = inputString.Split(" ");
+
+            if (splitParameters.Length == 2)
+            {
+                new WeeklyTask(splitParameters[0], splitParameters[1]);
+            }
+            else if (splitParameters.Length == 2)
+            {
+                new WeeklyTask(splitParameters[0], splitParameters[1], splitParameters[2]);
+            }
+            else if (splitParameters.Length == 3)
+            {
+                new WeeklyTask(splitParameters[0], splitParameters[1], splitParameters[2], splitParameters[3]);
+            }
+
+            return true;
+        }
+        
     }
 }
