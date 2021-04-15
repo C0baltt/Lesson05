@@ -4,6 +4,9 @@ namespace TaskManager
 {
     class TaskManager
     {
+
+        private static int s_counter;
+        private static WeeklyTask[] tasks = new WeeklyTask[10];
         static void Main(string[] args)
         {
             RunInLoop();
@@ -22,8 +25,7 @@ namespace TaskManager
 
                 if (int.TryParse(input, out var parsedInput))
                 {
-                    HandleCommand();
-
+                    HandleCommand(parsedInput);
                 }
                 else
                 {
@@ -64,11 +66,6 @@ namespace TaskManager
 5. Filter by priority");
         }
 
-        private static void HandleAddNewTask()
-        {
-            throw new NotImplementedException();
-        }
-
         private static void HandleList()
         {
             throw new NotImplementedException();
@@ -87,6 +84,63 @@ namespace TaskManager
         private static void HandleFilterByPriority()
         {
             throw new NotImplementedException();
+        }
+
+        private static void HandleAddNewTask()
+        {
+            if (s_counter > 10)
+            {
+                Console.WriteLine("Out of memory");
+            }
+            Console.WriteLine("Add new task in format: {},{},{}");
+            string inputData = Console.ReadLine();
+            var parts = inputData?.Split(",");
+
+            if (parts == null || parts.Length < 1 || parts.Length > 4)
+            {
+                Console.WriteLine("Invalid task format, try again");
+                return;
+            }
+
+            switch (parts.Length)
+            {
+                case 1:
+                    if(s_counter < 10)
+                    {
+                        var task = new WeeklyTask(parts[0]);
+                        tasks[s_counter] = task;
+                        s_counter++;
+                    }
+                    break;
+
+                case 2:
+                    var date = new DateTime.Parse(parts[1]);
+                    var task = new WeeklyTask(parts[0], date);
+                    tasks[s_counter] = task;
+                    s_counter++;
+                    break;
+
+                case 3:
+                    var date = new DateTime.Parse(parts[1]);
+                    var time = new DateTime.Parse(parts[2]);
+                    var task = new WeeklyTask(parts[0], date, time);
+                    tasks[s_counter] = task;
+                    s_counter++;
+                    break;
+
+                case 4:
+                    var date = new DateTime.Parse(parts[1]);
+                    var time = new DateTime.Parse(parts[2]);
+
+                    if(Enum.TryParse<Priority>(parts[3], out var priority))
+                    {
+                        var task = new WeeklyTask(parts[0], date, time, priority);
+                        tasks[s_counter] = task;
+                        s_counter++;
+                    }
+                    break;
+            }
+
         }
     }
 }
