@@ -13,6 +13,11 @@ namespace TaskManager
         private DateTime _time;
         private readonly Priority _priority;
 
+        public WeeklyTask(string name)
+        {
+            _name = name;
+        }
+
         public WeeklyTask(string name, DateTime date)
         {
             _name = name;

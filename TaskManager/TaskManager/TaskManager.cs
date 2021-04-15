@@ -105,42 +105,63 @@ namespace TaskManager
             switch (parts.Length)
             {
                 case 1:
-                    if(s_counter < 10)
+                    if (s_counter < 10)
                     {
-                        var task = new WeeklyTask(parts[0]);
-                        tasks[s_counter] = task;
-                        s_counter++;
+                        AddTaskWithName(parts);
                     }
                     break;
 
                 case 2:
-                    var date = new DateTime.Parse(parts[1]);
-                    var task = new WeeklyTask(parts[0], date);
-                    tasks[s_counter] = task;
-                    s_counter++;
+                    AddTaskWithDate(parts);
                     break;
 
                 case 3:
-                    var date = new DateTime.Parse(parts[1]);
-                    var time = new DateTime.Parse(parts[2]);
-                    var task = new WeeklyTask(parts[0], date, time);
-                    tasks[s_counter] = task;
-                    s_counter++;
+                    AddTaskWithDateTime(parts);
                     break;
 
                 case 4:
-                    var date = new DateTime.Parse(parts[1]);
-                    var time = new DateTime.Parse(parts[2]);
-
-                    if(Enum.TryParse<Priority>(parts[3], out var priority))
-                    {
-                        var task = new WeeklyTask(parts[0], date, time, priority);
-                        tasks[s_counter] = task;
-                        s_counter++;
-                    }
+                    AddTaskWithDateAndPriority(parts);
                     break;
             }
+        }
 
+        private static void AddTaskWithName(string[] parts)
+        {
+            var task = new WeeklyTask(parts[0]);
+            AddNewTask(task);
+        }
+
+        private static void AddTaskWithDate(string[] parts)
+        {
+            var date = new DateTime.Parse(parts[1]);
+            var task = new WeeklyTask(parts[0], date);
+            AddNewTask(task);
+        }
+
+        private static void AddTaskWithDateTime(string[] parts)
+        {
+            var date = new DateTime.Parse(parts[1]);
+            var time = new DateTime.Parse(parts[2]);
+            var task = new WeeklyTask(parts[0], date, time);
+            AddNewTask(task);
+        }
+
+        private static void AddTaskWithDateAndPriority(string[] parts)
+        {
+            var date = new DateTime.Parse(parts[1]);
+            var time = new DateTime.Parse(parts[2]);
+
+            if (Enum.TryParse<Priority>(parts[3], out var priority))
+            {
+                var task = new WeeklyTask(parts[0], date, time, priority);
+                AddNewTask(task);
+            }
+        }
+
+        private static void AddNewTask(WeeklyTask task)
+        {
+            tasks[s_counter] = task;
+            s_counter++;
         }
     }
 }
