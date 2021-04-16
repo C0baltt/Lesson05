@@ -38,11 +38,11 @@ namespace TaskManager
             _time = time;
             _priority = priority;
         }
+
+        public string ConvertToString(int index)
+        {
+            return $"Task №{index + 1}: {_name} - {_name} - {_time} - {_priority}";
+        }
     }
 }
-/*class Date
-        {
-            public int Day { get; set; }
-            public int Month { get; set; }
-            public int Year { get; set; }
-        }*/
+

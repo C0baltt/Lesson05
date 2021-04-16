@@ -23,6 +23,7 @@ namespace TaskManager
                 Console.WriteLine("Out of memory. Delete unnecessary tasks, and try again");
                 return;
             }
+
             Console.WriteLine("Add new task in format: {},{},{}");
             string inputData = Console.ReadLine();
             var parts = inputData?.Split(",");
@@ -33,13 +34,15 @@ namespace TaskManager
                 return;
             }
 
+            HandleAddNewTask(parts);
+        }
+
+        private void HandleAddNewTask(string[] parts)
+        {
             switch (parts.Length)
             {
                 case 1:
-                    if (_counter < 10)
-                    {
-                        AddTaskWithName(parts);
-                    }
+                    AddTaskWithName(parts);
                     break;
 
                 case 2:
@@ -58,7 +61,11 @@ namespace TaskManager
 
         public void HandleList()
         {
-            throw new NotImplementedException();
+            for (int i = 0; i < _counter; i++)
+            {
+                var task = _tasks[i];
+                Console.WriteLine(task.ConvertToString(i));
+            }
         }
 
         public void HandleEdit()
@@ -85,23 +92,26 @@ namespace TaskManager
 
         private void AddTaskWithDate(string[] parts)
         {
-            var date = new DateTime.Parse(parts[1]);
+            //var date = ToDateTime(parts[1]);
+            var date = Convert.ToDateTime(parts[1]);
+            //var date = new DateTime.Parse(parts[1]);
             var task = new WeeklyTask(parts[0], date);
             AddNewTask(task);
         }
-
+        
         private void AddTaskWithDateTime(string[] parts)
         {
-            var date = new DateTime.Parse(parts[1]);
-            var time = new DateTime.Parse(parts[2]);
+            var date = Convert.ToDateTime(parts[1]);
+            var time = Convert.ToDateTime(parts[2]);
             var task = new WeeklyTask(parts[0], date, time);
             AddNewTask(task);
         }
 
         private void AddTaskWithDateAndPriority(string[] parts)
         {
-            var date = new DateTime.Parse(parts[1]);
-            var time = new DateTime.Parse(parts[2]);
+            var date = Convert.ToDateTime(parts[1]);
+            var time = Convert.ToDateTime(parts[2]);
+            //var time = new DateTime.Parse(parts[2]);
 
             if (Enum.TryParse<Priority>(parts[3], out var priority))
             {
