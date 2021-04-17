@@ -30,7 +30,6 @@ namespace TaskManagerNamespace
             AddNewTask(task);
         }
 
-
         public void HandleList()
         {
             for (int i = 0; i < _counter; i++)
@@ -55,7 +54,7 @@ namespace TaskManagerNamespace
         {
             Console.WriteLine("Input date:");
             var inputData = Console.ReadLine();
-            var date = DateTime.Parse(inputDate);
+            var date = DateTime.Parse(inputData);
 
             //_tasks.Where(x => x.GetDate() > date);
             for (int i = 0; i < _counter; i++)

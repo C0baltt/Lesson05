@@ -44,7 +44,23 @@ namespace TaskManagerNamespace
 
         public string ConvertToString(int index)
         {
-            return $"Task №{index + 1}: {_name} - {_date.ToShortDateString()} - {_time.ToShortTimeString()} - {_priority}";
+            var output = $"Task №{index + 1}: {_name} ";
+            if (_date != default)
+            {
+                output += $"{_date.ToShortDateString()} ";
+            }
+
+            if (_time != default)
+            {
+                output += $"{_time.ToShortDateString()} ";
+            }
+
+            if (_priority != Priority.Empty)
+            {
+                output += _priority.ToString();
+            }
+
+            return output;
         }
     }
 }
