@@ -1,16 +1,15 @@
 ﻿using System;
 using static System.DateTime;
 
-namespace TaskManager
+namespace TaskManagerNamespace
 {
-    public class TaskManager
+    public class TaskManagerProgram
     {
         private static WeeklyTaskService s_service = new WeeklyTaskService();
 
         static void Main(string[] args)
         {
             RunInLoop();
-            Console.ReadKey();
         }
 
         private static void RunInLoop()
@@ -27,6 +26,10 @@ namespace TaskManager
                 {
                     HandleCommand(parsedInput);
                 }
+                else if(input == "exit")
+                {
+                    continue;
+                }
                 else
                 {
                     Console.WriteLine("Invalid command. Remember, you must only enter numbers from 1 to 5! Try again, or type \"exit\" to close the app");
@@ -37,12 +40,12 @@ namespace TaskManager
         private static void PrintMenu()
         {
 
-            Console.WriteLine(@"Choose a command:
+            Console.WriteLine("\n" + @"Choose a command:
 1. Add new task
 2. List all tasks
 3. Edit task
 4. Filter by date
-5. Filter by priority");
+5. Filter by priority" + "\n");
         }
 
         private static void HandleCommand(int parsedInput)

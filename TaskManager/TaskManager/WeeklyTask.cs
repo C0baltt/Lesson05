@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TaskManager
+namespace TaskManagerNamespace
 {
     internal class WeeklyTask
     {
@@ -41,7 +41,7 @@ namespace TaskManager
 
         public string ConvertToString(int index)
         {
-            return $"Task №{index + 1}: {_name} - {_name} - {_time} - {_priority}";
+            return $"Task №{index + 1}: {_name} - {_date.ToShortDateString()} - {_time.ToShortTimeString()} - {_priority}";
         }
     }
 }

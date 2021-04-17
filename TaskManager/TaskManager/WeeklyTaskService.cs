@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TaskManager
+namespace TaskManagerNamespace
 {
     internal class WeeklyTaskService
     {
@@ -25,7 +25,43 @@ namespace TaskManager
             }
 
             Console.WriteLine("Add new task in format: {},{},{}");
-            string inputData = Console.ReadLine();
+            var inputData = Console.ReadLine();
+            ParseNewTask(inputData);
+        }
+
+
+        public void HandleList()
+        {
+            for (int i = 0; i < _counter; i++)
+            {
+                var task = _tasks[i];
+                Console.WriteLine(task.ConvertToString(i));
+            }
+        }
+
+        public void HandleEdit()
+        {
+            Console.WriteLine("Input number to edit:");
+            var inputNumber = Console.ReadLine();
+            var taskNumber = int.Parse(inputNumber);
+
+            Console.WriteLine("Input new task data:");
+            var inputTaskData = Console.ReadLine();
+            var task = _tasks[taskNumber - 1];
+        }
+
+        public void HandleFilterByDate()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void HandleFilterByPriority()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void ParseNewTask(string? inputData)
+        {
             var parts = inputData?.Split(",");
 
             if (parts == null || parts.Length < 1 || parts.Length > 4)
@@ -44,46 +80,18 @@ namespace TaskManager
                 case 1:
                     AddTaskWithName(parts);
                     break;
-
                 case 2:
                     AddTaskWithDate(parts);
                     break;
-
                 case 3:
                     AddTaskWithDateTime(parts);
                     break;
-
                 case 4:
                     AddTaskWithDateAndPriority(parts);
                     break;
             }
         }
-
-        public void HandleList()
-        {
-            for (int i = 0; i < _counter; i++)
-            {
-                var task = _tasks[i];
-                Console.WriteLine(task.ConvertToString(i));
-            }
-        }
-
-        public void HandleEdit()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void HandleFilterByDate()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void HandleFilterByPriority()
-        {
-            throw new NotImplementedException();
-        }
-
-
+        
         private void AddTaskWithName(string[] parts)
         {
             var task = new WeeklyTask(parts[0]);
@@ -92,27 +100,22 @@ namespace TaskManager
 
         private void AddTaskWithDate(string[] parts)
         {
-            //var date = ToDateTime(parts[1]);
-            var date = Convert.ToDateTime(parts[1]);
-            //var date = new DateTime.Parse(parts[1]);
+            var date = DateTime.Parse(parts[1]);
             var task = new WeeklyTask(parts[0], date);
             AddNewTask(task);
         }
         
         private void AddTaskWithDateTime(string[] parts)
         {
-            var date = Convert.ToDateTime(parts[1]);
-            var time = Convert.ToDateTime(parts[2]);
+            var (date, time) = ParseDateTime(parts);
             var task = new WeeklyTask(parts[0], date, time);
             AddNewTask(task);
         }
 
         private void AddTaskWithDateAndPriority(string[] parts)
         {
-            var date = Convert.ToDateTime(parts[1]);
-            var time = Convert.ToDateTime(parts[2]);
-            //var time = new DateTime.Parse(parts[2]);
-
+            var (date, time) = ParseDateTime(parts);
+            
             if (Enum.TryParse<Priority>(parts[3], out var priority))
             {
                 var task = new WeeklyTask(parts[0], date, time, priority);
@@ -120,10 +123,18 @@ namespace TaskManager
             }
         }
 
+        private static (DateTime date, DateTime time) ParseDateTime(string[] parts)
+        {
+            var date = DateTime.Parse(parts[1]);
+            var time = DateTime.Parse(parts[2]);
+            return (date, time);
+        }
+
         private void AddNewTask(WeeklyTask task)
         {
             _tasks[_counter] = task;
             _counter++;
+            Console.WriteLine("\nTask added successfully!\n");
         }
     }
 }
