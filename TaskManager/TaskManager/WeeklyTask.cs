@@ -52,7 +52,7 @@ namespace TaskManagerNamespace
 
             if (_time != default)
             {
-                output += $"{_time.ToShortDateString()} ";
+                output += $"{_time.ToShortTimeString()} ";
             }
 
             if (_priority != Priority.Empty)

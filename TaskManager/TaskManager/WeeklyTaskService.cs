@@ -73,17 +73,28 @@ namespace TaskManagerNamespace
 
         public void HandleFilterByPriority()
         {
-            Console.WriteLine("Input the priority:");
+            Console.WriteLine("Input the priority number:");
             var inputData = Console.ReadLine();
             var priority = Enum.Parse<Priority>(inputData);
-
-            for (int i = 0; i < _counter; i++)
+            if (priority is >= 0 or < (Priority)4)
             {
-                var task = _tasks[i];
-                if (task.GetPriority() == priority)
+                for (int counterOfPrintTask = 0, i = 0; i < _counter; i++)
                 {
-                    PrintTask(task, i);
+                    var task = _tasks[i];
+                    if (task.GetPriority() == priority)
+                    {
+                        PrintTask(task, i);
+                        counterOfPrintTask++;
+                    }
+                    if ((_counter - 1 == i) && (counterOfPrintTask == 0))
+                    {
+                        Console.WriteLine($"Tasks with priority {priority} not set");
+                    }
                 }
+            }
+            else
+            {
+                Console.WriteLine("Invalid priority number! Remember, you must only enter numbers from 0 to 3! Try again:");
             }
         }
 
