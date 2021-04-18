@@ -55,8 +55,7 @@ namespace TaskManagerNamespace
             Console.WriteLine("Input date:");
             var inputData = Console.ReadLine();
             var date = DateTime.Parse(inputData);
-
-            //_tasks.Where(x => x.GetDate() > date);
+            
             for (int i = 0; i < _counter; i++)
             {
                 var task = _tasks[i];
@@ -66,6 +65,7 @@ namespace TaskManagerNamespace
                 }
             }
         }
+
         private static void PrintTask(WeeklyTask task, int i)
         {
             Console.WriteLine(task.ConvertToString(i));
@@ -73,7 +73,18 @@ namespace TaskManagerNamespace
 
         public void HandleFilterByPriority()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Input the priority:");
+            var inputData = Console.ReadLine();
+            var priority = Enum.Parse<Priority>(inputData);
+
+            for (int i = 0; i < _counter; i++)
+            {
+                var task = _tasks[i];
+                if (task.GetPriority() == priority)
+                {
+                    PrintTask(task, i);
+                }
+            }
         }
 
         private WeeklyTask ParseNewTask(string? inputData)

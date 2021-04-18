@@ -40,7 +40,7 @@ namespace TaskManagerNamespace
         }
 
         public DateTime GetDate() => _date;
-        
+        public Priority GetPriority() => _priority;
 
         public string ConvertToString(int index)
         {
