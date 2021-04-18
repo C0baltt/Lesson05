@@ -6,12 +6,42 @@ using System.Threading.Tasks;
 
 namespace TaskManagerNamespace
 {
+    internal class PriorityTask : WeeklyTask
+    {
+        private readonly Priority _priority;
+
+        public Priority GetPriority() => _priority;
+
+        public PriorityTask(string name, DateTime date, DateTime time, Priority priority)
+        {
+            _name = name;
+            _date = date;
+            _time = time;
+            _priority = priority;
+        }
+
+        public override string ConvertToString(int index)
+        {
+            var output = base.ConvertToString(index);
+
+            if (_priority != Priority.Empty)
+            {
+                output += _priority.ToString();
+            }
+
+            return output;
+        }
+    }
+
     internal class WeeklyTask
     {
-        private string _name;
-        private DateTime _date;
-        private DateTime _time;
-        private readonly Priority _priority;
+        internal string _name;
+        internal DateTime _date;
+        internal DateTime _time;
+
+        public WeeklyTask()
+        {
+        }
 
         public WeeklyTask(string name)
         {
@@ -31,18 +61,9 @@ namespace TaskManagerNamespace
             _time = time;
         }
 
-        public WeeklyTask(string name, DateTime date, DateTime time, Priority priority)
-        {
-            _name = name;
-            _date = date;
-            _time = time;
-            _priority = priority;
-        }
-
         public DateTime GetDate() => _date;
-        public Priority GetPriority() => _priority;
-
-        public string ConvertToString(int index)
+        
+        public virtual string ConvertToString(int index)
         {
             var output = $"Task №{index + 1}: {_name} ";
             if (_date != default)
@@ -53,11 +74,6 @@ namespace TaskManagerNamespace
             if (_time != default)
             {
                 output += $"{_time.ToShortTimeString()} ";
-            }
-
-            if (_priority != Priority.Empty)
-            {
-                output += _priority.ToString();
             }
 
             return output;

@@ -9,7 +9,7 @@ namespace TaskManagerNamespace
     internal class WeeklyTaskService
     {
         private int _counter;
-        private readonly WeeklyTask[] _tasks;
+        internal readonly WeeklyTask[] _tasks;
 
         public WeeklyTaskService()
         {
@@ -94,7 +94,7 @@ namespace TaskManagerNamespace
             }
             else
             {
-                Console.WriteLine("Invalid priority number! Remember, you must only enter numbers from 0 to 3! Try again:");
+                Console.WriteLine("Invalid priority number! Remember, you must only enter numbers from 0 to 3! \nTry again:");
             }
         }
 
@@ -142,7 +142,7 @@ namespace TaskManagerNamespace
             var (date, time) = ParseDateTime(parts);
 
             var priority = Enum.Parse<Priority>(parts[3]);
-            return new WeeklyTask(parts[0], date, time, priority);
+            return new PriorityTask(parts[0], date, time, priority);
         }
 
         private static (DateTime date, DateTime time) ParseDateTime(string[] parts)
