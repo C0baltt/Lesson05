@@ -1,5 +1,6 @@
 ﻿using System;
 using TaskManagerNamespace;
+using TaskManagerProject;
 
 namespace TaskManagerNamespace
 {
@@ -44,7 +45,7 @@ namespace TaskManagerNamespace
             Console.WriteLine("Input new task data in format: {},{},{}:");
             var inputTaskData = Console.ReadLine();
             var task = ParseNewTask(inputTaskData);
-            _tasks[taskNumber - 1] = task;
+            UpdateTask(taskNumber - 1, task);
         }
 
         public void HandleFilterByDate()
@@ -61,6 +62,11 @@ namespace TaskManagerNamespace
                     PrintTask(task, i);
                 }
             }
+        }
+
+        private void UpdateTask(int taskNumber,WeeklyTask task)
+        {
+            _tasks[taskNumber - 1] = task;
         }
 
         private static void PrintTask(WeeklyTask task, int i)
@@ -81,26 +87,33 @@ namespace TaskManagerNamespace
             if (priority is >= 0 or < (Priority)4)*/
 
             //bool a = IsDefined(Priority, priority);
-            static bool IsDefined(Priority, object value)
+            //static bool IsDefined(Priority, object value)
+
             if (priority is >= 0 or < (Priority)4)
             {
-                for (int counterOfPrintTask = 0, i = 0; i < _counter; i++)
-                {
-                    var task = _tasks[i];
-                    if (task.GetPriority() == priority)
-                    {
-                        PrintTask(task, i);
-                        counterOfPrintTask++;
-                    }
-                    if ((_counter - 1 == i) && (counterOfPrintTask == 0))
-                    {
-                        Console.WriteLine($"Tasks with priority {priority} not set");
-                    }
-                }
+                searchByPriority(priority);
             }
             else
             {
                 Console.WriteLine("Invalid priority number! Remember, you must only enter numbers from 0 to 3! \nTry again:");
+            }
+        }
+
+        public void searchByPriority(Priority priority)
+        {
+            bool isThereATask = false;
+            for (int i = 0; i < _counter; i++)
+            {
+                var task = _tasks[i];
+                if (task.GetPriority() == priority)
+                {
+                    PrintTask(task, i);
+                    isThereATask = true;
+                }
+                if (isThereATask == false)
+                {
+                    Console.WriteLine($"Tasks with priority {priority} not set");
+                }
             }
         }
 
@@ -129,18 +142,18 @@ namespace TaskManagerNamespace
             };
         }
 
-        private WeeklyTask CreateTaskWithName(string[] parts) => new WeeklyTask(parts[0]);
+        private WeeklyTask CreateTaskWithName(string[] parts) => new RegularTask(parts[0]);
 
         private WeeklyTask CreateTaskWithDate(string[] parts)
         {
             var date = DateTime.Parse(parts[1]);
-            return new WeeklyTask(parts[0], date);
+            return new RegularTask(parts[0], date);
         }
 
         private WeeklyTask CreateTaskWithDateTime(string[] parts)
         {
             var (date, time) = ParseDateTime(parts);
-            return new WeeklyTask(parts[0], date, time);
+            return new RegularTask(parts[0], date, time);
         }
 
         private WeeklyTask CreateTaskWithDateAndPriority(string[] parts)

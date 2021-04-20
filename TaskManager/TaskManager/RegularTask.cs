@@ -1,5 +1,6 @@
 ﻿using System;
 using TaskManagerNamespace;
+using TaskManagerProject;
 
 namespace TaskManagerProject
 {
@@ -12,26 +13,30 @@ namespace TaskManagerProject
         {
         }
 
+        public RegularTask(string name)
+        {
+            _name = name;
+        }
+
         public RegularTask(string name, DateTime date)
         {
-            base._name = name;
+            _name = name;
             _date = date;
         }
 
         public RegularTask(string name, DateTime date, DateTime time)
         {
-            base._name = name;
+            _name = name;
             _date = date;
             _time = time;
         }
 
         public DateTime GetDate() => _date;
-
+       
         public override string ConvertToString(int index)
         {
-            var output = base.ConvertToString(index);
 
-            return output;
+            return base.ConvertToString(index);
         }
     }
 }

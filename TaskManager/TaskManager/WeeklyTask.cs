@@ -1,5 +1,6 @@
 ﻿using System;
 using TaskManagerNamespace;
+using TaskManagerProject;
 
 namespace TaskManagerNamespace
 {
@@ -18,9 +19,7 @@ namespace TaskManagerNamespace
         
         public virtual string ConvertToString(int index)
         {
-            var output = $"Task №{index + 1}: {_name} ";
-            
-            return output;
+            return $"Task №{index + 1}: {_name} ";
         }
     }
   
@@ -35,5 +34,4 @@ namespace TaskManagerNamespace
 
             return output;
         }
-    }
 }
