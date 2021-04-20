@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using TaskManagerNamespace;
 
 namespace TaskManagerNamespace
 {
@@ -55,7 +52,7 @@ namespace TaskManagerNamespace
             Console.WriteLine("Input date:");
             var inputData = Console.ReadLine();
             var date = DateTime.Parse(inputData);
-            
+
             for (int i = 0; i < _counter; i++)
             {
                 var task = _tasks[i];
@@ -75,7 +72,16 @@ namespace TaskManagerNamespace
         {
             Console.WriteLine("Input the priority number:");
             var inputData = Console.ReadLine();
+
             var priority = Enum.Parse<Priority>(inputData);
+            /*static bool IsDefined(Priority, object value)
+            {
+
+            }
+            if (priority is >= 0 or < (Priority)4)*/
+
+            //bool a = IsDefined(Priority, priority);
+            static bool IsDefined(Priority, object value)
             if (priority is >= 0 or < (Priority)4)
             {
                 for (int counterOfPrintTask = 0, i = 0; i < _counter; i++)
@@ -122,7 +128,7 @@ namespace TaskManagerNamespace
                 _ => null,
             };
         }
-        
+
         private WeeklyTask CreateTaskWithName(string[] parts) => new WeeklyTask(parts[0]);
 
         private WeeklyTask CreateTaskWithDate(string[] parts)
@@ -130,7 +136,7 @@ namespace TaskManagerNamespace
             var date = DateTime.Parse(parts[1]);
             return new WeeklyTask(parts[0], date);
         }
-        
+
         private WeeklyTask CreateTaskWithDateTime(string[] parts)
         {
             var (date, time) = ParseDateTime(parts);

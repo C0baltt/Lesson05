@@ -1,5 +1,5 @@
 ﻿using System;
-using static System.DateTime;
+using TaskManagerNamespace;
 
 namespace TaskManagerNamespace
 {
@@ -14,9 +14,9 @@ namespace TaskManagerNamespace
 
         private static void RunInLoop()
         {
-            string input = null;
+            string input;
 
-            while (input != "exit")
+            while (true)
             {
                 PrintMenu();
 
@@ -28,7 +28,7 @@ namespace TaskManagerNamespace
                 }
                 else if(input == "exit")
                 {
-                    continue;
+                    break;
                 }
                 else
                 {
@@ -39,7 +39,6 @@ namespace TaskManagerNamespace
 
         private static void PrintMenu()
         {
-
             Console.WriteLine("\n" + @"Choose a command:
 1. Add new task
 2. List all tasks
