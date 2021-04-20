@@ -48,6 +48,10 @@ namespace TaskManagerNamespace
             UpdateTask(taskNumber - 1, task);
         }
 
+        delegate void DelegateUpdateTask(int x, WeeklyTask y);
+
+        DelegateUpdateTask del 
+
         public void HandleFilterByDate()
         {
             Console.WriteLine("Input date:");
