@@ -42,21 +42,17 @@ namespace TaskManagerNamespace
             var inputNumber = Console.ReadLine();
             var taskNumber = int.Parse(inputNumber);
 
-            Message mes;
-            mes = PrintMessege;
-            mes(taskNumber);
-
             Console.WriteLine("Input new task data in format: {},{},{}:");
             var inputTaskData = Console.ReadLine();
             var task = ParseNewTask(inputTaskData);
             UpdateTask(taskNumber - 1, task);
+
+            Message mes;
+            mes = PrintMessege;
+            mes(taskNumber);
         }
 
         public delegate void Message(int taskNumber);
-
-        /*delegate void DelegateUpdateTask(int x, WeeklyTask y);
-        DelegateUpdateTask del  = UpdateTask;
-        WeeklyTaskService res = del(taskNumber - 1, task);*/
 
         public void HandleFilterByDate()
         {
