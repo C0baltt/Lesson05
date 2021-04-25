@@ -109,7 +109,7 @@ namespace TaskManagerNamespace
             }
         }
 
-        public void searchByPriority(Priority priority)
+        public void SearchByPriority(Priority priority)
         {
             bool isThereATask = false;
             for (int i = 0; i < _counter; i++)
